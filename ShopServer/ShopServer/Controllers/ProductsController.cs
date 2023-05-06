@@ -37,6 +37,26 @@ namespace ShopServer.Controllers
             }
             return Ok(productsDto);
         }
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetById([FromRoute] Guid id)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.id == id);
+            if(product == null)
+            {
+                return NotFound();
+            }
+            var productDto = new ProductDto()
+            {
+                id = product.id,
+                name = product.name,
+                desc = product.desc,
+                price = product.price,
+                create_at = product.create_at,
+                modified_at = product.modified_at
+            };
+            return Ok(productDto);
+        }
         [HttpPost]
         public IActionResult Create([FromBody] AddProductRequestDto addProductRequestDto)
         {
@@ -62,6 +82,58 @@ namespace ShopServer.Controllers
                 modified_at = productDomainModel.modified_at
             };
             return Ok();
+        }
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] Guid id, [FromBody] UpdateProductRequestDto updateProductRequestDto)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.id == id);
+            if(product == null)
+            {
+                return NotFound();
+            }
+            product.name = updateProductRequestDto.name;
+            product.price = updateProductRequestDto.price;
+            product.desc = updateProductRequestDto.desc;
+            product.modified_at = updateProductRequestDto.modified_at;
+            product.category = updateProductRequestDto.category;
+
+            _context.SaveChanges();
+
+            var productDto = new ProductDto()
+            {
+                id = product.id,
+                name = product.name,
+                desc = product.desc,
+                category = product.category,
+                price = product.price,
+                modified_at = product.modified_at,
+                create_at = product.create_at
+            };
+            return Ok(productDto);
+        }
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            var product = _context.Products.FirstOrDefault(x=>x.id == id);
+            if(product == null)
+            {
+                return NotFound();
+            }
+            var productDto = new ProductDto()
+            {
+                id = product.id,
+                name = product.name,
+                price = product.price,
+                category = product.category,
+                desc = product.desc,
+                create_at = product.create_at,
+                modified_at = product.modified_at
+            };
+            _context.Remove(product);
+            _context.SaveChanges();
+            return Ok(productDto);
         }
     }
 }
