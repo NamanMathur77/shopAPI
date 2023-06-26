@@ -67,7 +67,8 @@ namespace ShopServer.Controllers
                 desc = addProductRequestDto.desc,
                 price = addProductRequestDto.price,
                 create_at = addProductRequestDto.create_at,
-                modified_at = addProductRequestDto.modified_at
+                modified_at = addProductRequestDto.modified_at,
+                DiscountId = addProductRequestDto.DiscountId
             };
             _context.Products.Add(productDomainModel);
             _context.SaveChanges();
