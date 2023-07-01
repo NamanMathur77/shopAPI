@@ -33,6 +33,7 @@ namespace ShopServer.Controllers
                     category = product.category,
                     create_at = product.create_at,
                     modified_at = product.modified_at,
+                    DiscountId = product.DiscountId
                 });
             }
             return Ok(productsDto);
@@ -53,7 +54,9 @@ namespace ShopServer.Controllers
                 desc = product.desc,
                 price = product.price,
                 create_at = product.create_at,
-                modified_at = product.modified_at
+                modified_at = product.modified_at,
+                DiscountId = product.DiscountId
+
             };
             return Ok(productDto);
         }
@@ -80,7 +83,9 @@ namespace ShopServer.Controllers
                 desc = productDomainModel.desc,
                 price = productDomainModel.price,
                 create_at = productDomainModel.create_at,
-                modified_at = productDomainModel.modified_at
+                modified_at = productDomainModel.modified_at,
+                DiscountId = productDomainModel.DiscountId
+
             };
             return Ok();
         }
@@ -98,6 +103,7 @@ namespace ShopServer.Controllers
             product.desc = updateProductRequestDto.desc;
             product.modified_at = updateProductRequestDto.modified_at;
             product.category = updateProductRequestDto.category;
+            product.DiscountId = updateProductRequestDto.DiscountId;
 
             _context.SaveChanges();
 
@@ -109,7 +115,8 @@ namespace ShopServer.Controllers
                 category = product.category,
                 price = product.price,
                 modified_at = product.modified_at,
-                create_at = product.create_at
+                create_at = product.create_at,
+                DiscountId = product.DiscountId
             };
             return Ok(productDto);
         }
@@ -130,7 +137,8 @@ namespace ShopServer.Controllers
                 category = product.category,
                 desc = product.desc,
                 create_at = product.create_at,
-                modified_at = product.modified_at
+                modified_at = product.modified_at,
+                DiscountId = product.DiscountId
             };
             _context.Remove(product);
             _context.SaveChanges();

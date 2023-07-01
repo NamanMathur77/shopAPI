@@ -14,7 +14,6 @@ namespace ShopServer.Models.Domain
         public DateTime modified_at { get; set; }
         public Guid? DiscountId { get; set; }
 
-        public Discount? discount { get; set; }
 
     }
 }
